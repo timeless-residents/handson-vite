@@ -34,6 +34,17 @@ You can also manually trigger a deployment:
 2. Select the "Deploy to GitHub Pages" workflow
 3. Click "Run workflow" and select the branch you want to deploy
 
+### Repository Information Management
+
+This project includes a GitHub Actions workflow to update repository information:
+
+1. Go to the "Actions" tab in your repository
+2. Select the "Update Repository Information" workflow
+3. Click "Run workflow"
+4. You can customize:
+   - Repository description (default: "A React application built with Vite and deployed to GitHub Pages")
+   - Repository topics (default: react, vite, github-pages, javascript, web-development)
+
 ### Local Development
 
 ```bash

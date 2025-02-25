@@ -1,0 +1,43 @@
+name: Update Repository Information
+
+on:
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      description:
+        description: 'Repository description'
+        required: false
+        default: 'A React application built with Vite and deployed to GitHub Pages'
+      topics:
+        description: 'Repository topics (comma-separated)'
+        required: false
+        default: 'react,vite,github-pages,javascript,web-development'
+
+jobs:
+  update-repo-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub CLI
+        run: |
+          gh auth status
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update repository description
+        if: "${{ github.event.inputs.description != '' }}"
+        run: |
+          gh repo edit ${{ github.repository }} --description "${{ github.event.inputs.description || 'A React application built with Vite and deployed to GitHub Pages' }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update repository topics
+        if: "${{ github.event.inputs.topics != '' }}"
+        run: |
+          # Convert comma-separated topics to space-separated for gh CLI
+          TOPICS=$(echo "${{ github.event.inputs.topics || 'react,vite,github-pages,javascript,web-development' }}" | tr ',' ' ')
+          gh repo edit ${{ github.repository }} --add-topic $TOPICS
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
