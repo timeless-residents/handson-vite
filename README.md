@@ -38,6 +38,16 @@ You can also manually trigger a deployment:
 
 This project includes a GitHub Actions workflow to update repository information:
 
+#### Setup Required
+1. Create a Personal Access Token (PAT) with `repo` scope:
+   - Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
+   - Generate a new token with `repo` scope
+   - Copy the generated token
+2. Add the token as a repository secret:
+   - Go to your repository → Settings → Secrets and variables → Actions
+   - Create a new repository secret named `PAT` and paste your token
+
+#### Usage
 1. Go to the "Actions" tab in your repository
 2. Select the "Update Repository Information" workflow
 3. Click "Run workflow"
